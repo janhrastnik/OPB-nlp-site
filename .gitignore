@@ -1,1 +1,4 @@
 venv/
+Data/__pycache__
+env/
+Data/auth.py

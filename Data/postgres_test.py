@@ -1,4 +1,4 @@
-import psycopg2  
+import psycopg2
 from auth import *
 
 conn = psycopg2.connect(dbname=auth['db'], user=auth['user'], password=auth['password'], host = auth['host'], port=auth['port'])
