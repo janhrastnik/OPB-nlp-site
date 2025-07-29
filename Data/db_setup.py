@@ -1,5 +1,7 @@
 import psycopg2
 import sys
+import os
+import random
 from auth import *
 
 """
@@ -24,7 +26,7 @@ try:
 
         cur.execute("""
             DROP TABLE IF EXISTS users cascade;
-            DROP TABLE IF EXISTS sightings;
+            DROP TABLE IF EXISTS sightings cascade;
             DROP TABLE IF EXISTS comments;
             DROP TABLE IF EXISTS locations;
             DROP TABLE IF EXISTS shapes;
@@ -45,7 +47,7 @@ cur.execute("""CREATE TABLE users (
 cur.execute("""CREATE TABLE sightings (
     id serial PRIMARY KEY,
     title varchar(255),
-    sighting_date timestamptz,
+    sighting_date timestamp,
     description text,
     coords point,
     duration varchar(255),
@@ -73,6 +75,99 @@ cur.execute("""CREATE TABLE shapes (
     id serial PRIMARY KEY,
     name varchar(255)   
 );""")
+
+# create some placeholder users
+cur.execute("""INSERT INTO users VALUES (
+    1,
+    'VladimirBober',
+    'vladimir-bober@fake-email',
+    'bad-password',
+    '123'
+);""")
+
+cur.execute("""INSERT INTO users VALUES (
+    2,
+    'JohnSmith',
+    'john-smith@fake-email',
+    'bad-password',
+    '123'
+);""")
+
+cur.execute("""INSERT INTO users VALUES (
+    3,
+    'JaneDoe',
+    'jane-doe@fake-email',
+    'bad-password',
+    '123'
+);""")
+
+cur.execute("""INSERT INTO users VALUES (
+    4,
+    'WillSmith',
+    'will-smith@fake-email',
+    'bad-password',
+    '123'
+);""")
+
+cur.execute("""INSERT INTO users VALUES (
+    5,
+    'KevinBaker',
+    'kevin-baker@fake-email',
+    'bad-password',
+    '123'
+);""")
+
+# we get the absolute file path of our csv data file, otherwise relative filepath would work only from certain working directory
+# downside is that if we move any of the files, this will silently break
+dirname = os.path.dirname(__file__)
+data_filepath = os.path.join(dirname, '../podatki/complete.csv')
+
+# DATA COLUMNS IN ORDER
+# datetime,city,state,country,shape,duration (seconds),duration (hours/min),comments,date posted,latitude,longitude
+
+# here we add in our existing ufo data we got from kaggle
+# assume, we have some placeholder users already defined in the db
+# and randomly assign them the ufo sightings as if they were theirs
+# for the sake of making a demo project
+with open(data_filepath) as F:
+    lines = [x.strip() for x in F.readlines()]
+    #print(lines[0])
+    #print(lines[1])
+    #print(lines[2])
+
+
+    queries = []
+
+    for i, line in enumerate(lines[1:]):
+        line = line.split(",")
+        # SIGHTINGS COLUMNS IN ORDER
+        # title, sighting_date, description, coords, duration, user_id, creation_date 
+        shape = "unknown" if line[4] == "" else line[4]
+        title = f"Sighting of {shape}-shaped UFO in {line[1].capitalize()}, {line[2].capitalize()}"
+        coords = f"({line[9]}, {line[10]})"
+
+        query = f"""INSERT INTO sightings VALUES (
+            {i},
+            '{title}',
+            '{line[0]}',
+            '{line[7]}',
+            '{coords}',
+            '{line[6]}',
+            '{random.randint(1, 5)}',
+            '{line[8]}'
+        )
+        """
+
+        queries.append(query)
+
+    for query in queries:
+        # print(query)
+
+        try:
+            cur.execute(query)
+        except psycopg2.errors.InvalidTextRepresentation:
+            # some of the sighting entries are flawed, we should not bother rescuing all of them
+            conn.rollback()
 
 conn.commit()
 
