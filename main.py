@@ -3,6 +3,7 @@ from bottle import TEMPLATE_PATH
 
 TEMPLATE_PATH.append('./Presentation/views')
 
+
 @route('/hello')
 def hello():
     return template('home.html')
