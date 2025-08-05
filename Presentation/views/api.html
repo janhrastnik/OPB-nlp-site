@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .profile-box {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      max-width: 500px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2em;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    .profile-info {
+      font-size: 1.1em;
+      color: #e0e0e0;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-box">
+    <h1>Api Calls Testing</h1>
+    <div class="profile-info">
+      <button onclick="getAllSightings()">get_all_sightings</button>
+
+      <script>
+        function getAllSightings() {
+            fetch('/get_all_sightings')
+              .then(res => {
+                // here we could do something with the data
+                void(0);
+              });
+        }
+      </script>
+    </div>
+  </div>
+</body>
+
+</html>
+
