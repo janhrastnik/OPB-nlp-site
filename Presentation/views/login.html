@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alien Login Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #0b0c10 0%, #000000 100%);
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0ff;
+    }
+
+    .login-container {
+      background: rgba(10, 10, 20, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #0ff;
+      width: 320px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #111;
+      border: 2px solid #0ff;
+      border-radius: 8px;
+      color: #0ff;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .signin-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 16px;
+      background-color: #0ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+    }
+
+    .signin-btn:hover {
+      background-color: #00cccc;
+      box-shadow: 0 0 20px #0ff, 0 0 30px #0ff inset;
+    }
+
+    .register-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #0ff;
+      text-decoration: none;
+      border: 1px solid #0ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .register-link:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 15px #0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Alien Access Portal</h2>
+    <form action="login-handler.html" method="post">
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit" class="signin-btn">Sign In</button>
+    </form>
+    <a href="register" class="register-link">Register</a>
+  </div>
+</body>
+</html>

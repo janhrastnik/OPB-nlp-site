@@ -1,6 +1,6 @@
-auth = {'db' : 'nlp',
+auth = {'db' : 'nlpsite',
 'host' : 'localhost',
-'port' : 5432,
+'port' : 54926,
 'user' : 'postgres',
-'password' : 'post'}
+'password' : 'aliens123'}
 

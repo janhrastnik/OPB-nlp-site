@@ -51,14 +51,63 @@
 </head>
 
 <body>
+<style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+      font-family: 'Orbitron', sans-serif;
+      height: 100vh;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .futuristic-button {
+      display: inline-block;
+      background: linear-gradient(145deg, #1f1f1f, #2d2d2d);
+      color: #0ff;
+      border: 2px solid #0ff;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 12px #0ff, 0 0 24px #0ff inset;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .futuristic-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 16px #0ff, 0 0 32px #0ff inset;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="top-right">
+    <a href="login" class="futuristic-button">Sign In</a>
+  </div>
+</body>
+
     <a href="profil" style="display: inline-block; padding: 12px 25px; background-color: #00ffff; color: #000; font-family: 'Orbitron', sans-serif; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 0 0 10px rgba(0,255,255,0.6); transition: background 0.3s;">My Profile</a>
 
   <div class="container">
-    <h1>NLP Sightings</h1>
+    <h1>UFO Sightings</h1>
     <p>
-      NLPs, or Non-Luminous Phenomena, are mysterious events observed without visible light emissions.
-      Sightings have been reported globally, but they are most frequent in remote mountain ranges and deep ocean regions.
-      Records of NLP sightings began in the early 1980s, puzzling scientists and explorers ever since.
+      UFOs, or Unidentified Flying Objects, have fascinated humans for centuries, with sightings dating back to ancient 
+      cave paintings and historical texts describing strange lights or flying objects. The modern UFO era began in 1947 
+      when pilot Kenneth Arnold reported seeing disk-shaped crafts near Mount Rainier, coining the term "flying saucer." 
+      That same year, the famous Roswell incident sparked widespread speculation about government cover-ups and 
+      extraterrestrial visitors. Since then, UFOs have remained a topic of mystery and debate, with governments and 
+      scientists occasionally releasing reports but offering few definitive answers.
     </p>
   </div>
 </body>
