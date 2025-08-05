@@ -74,7 +74,6 @@ class DatabaseSetup:
             username varchar(50) unique,
             email varchar(255) unique,
             password varchar(255),
-            salt text
         );""")
 
         # TABELA OPAŽANJ

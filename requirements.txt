@@ -1,2 +1,4 @@
 bottle
-psycopg2 
+psycopg2
+dataclasses-json
+argon2-cffi
