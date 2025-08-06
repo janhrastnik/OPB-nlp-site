@@ -49,9 +49,18 @@
     <div class="profile-info">
       <button onclick="getAllSightings()">get_all_sightings</button>
 
+      <button onclick="getAllUsers()">get_all_users</button>
+
       <script>
         function getAllSightings() {
             fetch('/get_all_sightings')
+              .then(res => {
+                // here we could do something with the data
+                void(0);
+              });
+        }
+        function getAllUsers() {
+            fetch('/get_all_users')
               .then(res => {
                 // here we could do something with the data
                 void(0);

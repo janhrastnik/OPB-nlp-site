@@ -114,36 +114,31 @@ class DatabaseSetup:
 
     def setup_data(self):
         # create some placeholder users
-        self.cur.execute("""INSERT INTO users VALUES (
-            1,
+        self.cur.execute("""INSERT INTO users (username, email, password) VALUES (
             'VladimirBober',
             'vladimir-bober@fake-email',
             'bad-password'
         );""")
 
-        self.cur.execute("""INSERT INTO users VALUES (
-            2,
+        self.cur.execute("""INSERT INTO users (username, email, password) VALUES (
             'JohnSmith',
             'john-smith@fake-email',
             'bad-password'
         );""")
 
-        self.cur.execute("""INSERT INTO users VALUES (
-            3,
+        self.cur.execute("""INSERT INTO users (username, email, password) VALUES (
             'JaneDoe',
             'jane-doe@fake-email',
             'bad-password'
         );""")
 
-        self.cur.execute("""INSERT INTO users VALUES (
-            4,
+        self.cur.execute("""INSERT INTO users (username, email, password) VALUES (
             'WillSmith',
             'will-smith@fake-email',
             'bad-password'
         );""")
 
-        self.cur.execute("""INSERT INTO users VALUES (
-            5,
+        self.cur.execute("""INSERT INTO users (username, email, password) VALUES (
             'KevinBaker',
             'kevin-baker@fake-email',
             'bad-password'
