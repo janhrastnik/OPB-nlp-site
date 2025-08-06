@@ -26,7 +26,7 @@ def register():
     return template('register.html')
 
 @route('/api')
-def profil():
+def api():
     return template('api.html')
 
 @get('/get_all_sightings')
@@ -35,7 +35,7 @@ def get_all_sightings():
 
 if __name__ == '__main__':
     # TODO: use sys.argv to enable user to force a clean setup
-    if database_setup.should_setup():
-        database_setup.setup()
+    # if database_setup.should_setup():
+    database_setup.setup()
     run(host='localhost', port = 8080, debug=True)
 

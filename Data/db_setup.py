@@ -73,7 +73,7 @@ class DatabaseSetup:
             id serial PRIMARY KEY,
             username varchar(50) unique,
             email varchar(255) unique,
-            password varchar(255),
+            password varchar(255)
         );""")
 
         # TABELA OPAŽANJ
@@ -118,41 +118,38 @@ class DatabaseSetup:
             1,
             'VladimirBober',
             'vladimir-bober@fake-email',
-            'bad-password',
-            '123'
+            'bad-password'
         );""")
 
         self.cur.execute("""INSERT INTO users VALUES (
             2,
             'JohnSmith',
             'john-smith@fake-email',
-            'bad-password',
-            '123'
+            'bad-password'
         );""")
 
         self.cur.execute("""INSERT INTO users VALUES (
             3,
             'JaneDoe',
             'jane-doe@fake-email',
-            'bad-password',
-            '123'
+            'bad-password'
         );""")
 
         self.cur.execute("""INSERT INTO users VALUES (
             4,
             'WillSmith',
             'will-smith@fake-email',
-            'bad-password',
-            '123'
+            'bad-password'
         );""")
 
         self.cur.execute("""INSERT INTO users VALUES (
             5,
             'KevinBaker',
             'kevin-baker@fake-email',
-            'bad-password',
-            '123'
+            'bad-password'
         );""")
+
+        self.conn.commit()
 
         # we get the absolute file path of our csv data file, otherwise relative filepath would work only from certain working directory
         # downside is that if we move any of the files, this will silently break
