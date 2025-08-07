@@ -54,10 +54,10 @@
       <script>
         function getAllSightings() {
             fetch('/get_all_sightings')
-              .then(res => {
-                // here we could do something with the data
-                void(0);
-              });
+              .then(res => res.text())
+              .then(text => {
+                 console.log(text);
+              })
         }
         function getAllUsers() {
             fetch('/get_all_users')

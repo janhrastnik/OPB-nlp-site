@@ -1,5 +1,5 @@
 from bottle import run, route, template, get, post, request
-from bottle import TEMPLATE_PATH
+from bottle import TEMPLATE_PATH, response
 from Services.sighting_service import SightingService
 from Data.db_setup import DatabaseSetup
 from Services.user_service import UserService
@@ -48,7 +48,10 @@ def api():
 
 @get('/get_all_sightings')
 def get_all_sightings():
-    sighting_service.get_all_sightings()
+    res = sighting_service.get_all_sightings()
+    result = str(res)
+    response.content_type = 'text/plain'
+    return result
 
 @get('/get_all_users')
 def get_all_users():
