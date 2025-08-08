@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UFO Sightings</title>
+  <style>
+    :root{
+      --bg:#02010a;
+      --card:#050017;
+      --muted:#7fffd4;
+      --accent:#39ff14;
+      --glow:#0ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:'Orbitron',sans-serif;
+      margin:0;
+      background:radial-gradient(circle at top,#030015 0%, #000 100%);
+      color:#e0ffe0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .container{width:100%;max-width:1000px}
+    .hero{text-align:center;margin-bottom:20px}
+    .hero p{color:var(--muted);font-size:18px;text-shadow:0 0 5px var(--glow)}
+    header{display:flex;align-items:end;justify-content:space-between;margin-bottom:8px}
+    h1{font-size:32px;margin:0;color:var(--accent);text-shadow:0 0 10px var(--accent)}
+    .small{font-size:12px;color:var(--muted)}
+    .card{
+      background:rgba(10,0,30,0.8);
+      border:1px solid rgba(0,255,180,0.2);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 0 15px rgba(0,255,180,0.2);
+    }
+    form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    input,textarea,select{
+      width:100%;
+      padding:8px;
+      border-radius:8px;
+      border:1px solid rgba(0,255,180,0.3);
+      background:rgba(0,255,180,0.05);
+      color:#e0ffe0;
+      font-size:14px;
+    }
+    textarea{grid-column:span 3;min-height:72px;resize:vertical}
+    .actions{display:flex;gap:8px;align-items:center}
+    button{
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#000;
+      font-weight:700;
+      cursor:pointer;
+      text-shadow:0 0 5px #000;
+      box-shadow:0 0 10px var(--accent);
+    }
+    button:hover{box-shadow:0 0 20px var(--accent)}
+    table{width:100%;border-collapse:collapse;margin-top:8px;color:#e0ffe0}
+    th,td{padding:10px;border-bottom:1px solid rgba(0,255,180,0.2);text-align:left;font-size:14px}
+    th{font-size:13px;color:var(--muted);text-shadow:0 0 5px var(--glow)}
+    tbody tr:hover{background:rgba(0,255,180,0.08)}
+    details summary{cursor:pointer}
+    @media (max-width:760px){form{grid-template-columns:1fr}textarea{grid-column:span 1}}
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+    </div>
+
+    <header>
+      <h1>UFO Sightings</h1>
+    </header>
+
+    <div class="card">
+      <form id="sightingForm">
+        <div>
+          <label for="date">Date</label>
+          <input type="date" id="date" required />
+        </div>
+        <div>
+          <label for="location">Location</label>
+          <input type="text" id="location" placeholder="City, Country" required />
+        </div>
+        <div>
+          <label for="witness">Witness</label>
+          <input type="text" id="witness" placeholder="Name" />
+        </div>
+        <div style="grid-column:span 3">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Short description of the sighting" required></textarea>
+        </div>
+        
+        <div class="actions" style="grid-column:span 3;justify-content:space-between;align-items:center">
+          <div>
+            <button type="submit" id="addBtn">Add Sighting</button>
+            <button type="button" id="clearBtn">Clear All</button>
+          </div>
+          <div class="small">Saved to your browser (localStorage)</div>
+        </div>
+      </form>
+
+      <div style="overflow:auto">
+        <table id="sightingsTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>Witness</th>
+              <th>Prompt</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('sightingForm');
+    const tableBody = document.querySelector('#sightingsTable tbody');
+    const STORAGE_KEY = 'ufo_sightings_v1';
+
+    function loadSightings(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      try{return raw ? JSON.parse(raw) : [];}catch{return []}
+    }
+    function saveSightings(list){localStorage.setItem(STORAGE_KEY, JSON.stringify(list));}
+    function escapeHtml(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}
+    function render(){
+      const list = loadSightings();
+      tableBody.innerHTML = '';
+      list.forEach((s,i)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${s.date||''}</td>
+          <td>${escapeHtml(s.location||'')}</td>
+          <td>${escapeHtml(s.description||'')}</td>
+          <td>${escapeHtml(s.witness||'')}</td>
+          <td><details><summary>${s.prompt? (s.prompt.slice(0,40)+'...') : '—'}</summary><div style="white-space:pre-wrap">${escapeHtml(s.prompt||'')}</div></details></td>
+          <td><button data-index="${i}" class="deleteBtn">Delete</button></td>`;
+        tableBody.appendChild(tr);
+      });
+    }
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const data = {
+        date: document.getElementById('date').value,
+        location: document.getElementById('location').value.trim(),
+        witness: document.getElementById('witness').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        prompt: document.getElementById('prompt').value.trim(),
+      };
+      const list = loadSightings();
+      list.unshift(data);
+      saveSightings(list);
+      form.reset();
+      render();
+    });
+    document.getElementById('clearBtn').addEventListener('click', ()=>{
+      if(confirm('Clear all saved sightings?')){
+        localStorage.removeItem(STORAGE_KEY);
+        render();
+      }
+    });
+    tableBody.addEventListener('click', e=>{
+      if(e.target.matches('.deleteBtn')){
+        const idx = Number(e.target.dataset.index);
+        const list = loadSightings();
+        list.splice(idx,1);
+        saveSightings(list);
+        render();
+      }
+    });
+    render();
+  </script>
+</body>
+</html>
