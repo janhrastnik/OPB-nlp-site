@@ -1,6 +1,6 @@
 import psycopg2, psycopg2.extras, psycopg2.extensions
 from Data.auth import auth
-from Data.models import Sighting
+from Data.models import Sighting, User
 from typing import List
 
 # the Repo class contains methods that will fetch data from the database
@@ -37,7 +37,7 @@ class Repo:
 
         print(res)
 
-    def add_new_user(self, email, nickname, hashed_password):
+    def add_new_user(self, email: str, nickname: str, hashed_password: str):
         self.cur.execute(f"""
             INSERT INTO users (username, email, password) VALUES (
                 '{nickname}',
@@ -45,5 +45,28 @@ class Repo:
                 '{hashed_password}'
             );""")
 
+    def user_exists(self, email: str) -> bool:
+
+        user_exists_flag = False
+
+        self.cur.execute(f"""
+            SELECT 1 FROM users WHERE email = '{email}'    
+            """)
+
+        if self.cur.fetchone():
+            user_exists_flag = True
+
+        return user_exists_flag;
+
+    def get_user(self, email: str) -> User:
+
+        self.cur.execute(f"""
+            SELECT * FROM users WHERE email = '{email}'
+            """)
+
+        user = User.from_dict(self.cur.fetchone())
+
+        return user
+    
     # TODO: we will need methods that get users, comments etc.
         

@@ -14,4 +14,10 @@ class Sighting:
     user_id: int = field(default=0)
     creation_date: datetime = field(default=datetime.now())
 
+@dataclass_json
+@dataclass
+class User:
+    username: str = field(default="")
+    email: str = field(default="")
+    password: str = field(default="")
 # TODO: add other types

@@ -1,5 +1,5 @@
 from bottle import run, route, template, get, post, request
-from bottle import TEMPLATE_PATH, response
+from bottle import TEMPLATE_PATH, response, redirect, url
 from Services.sighting_service import SightingService
 from Data.db_setup import DatabaseSetup
 from Services.user_service import UserService
@@ -26,8 +26,23 @@ def login():
 
 @post('/do_login')
 def do_login():
-    # TODO
-    return template('profil.html')
+    email = request.forms.email
+    password = request.forms.password
+    
+    if not user_service.user_exists(email):
+        # user isn't registered
+        # TODO: tell user this email isn't registered
+        pass
+
+    login_res = user_service.login(email, password)
+
+    if login_res:
+        # login succeeded
+        # TODO: maybe setup cookies in a safer way
+        response.set_cookie('user', email)
+    
+    redirect(url('/profil'))
+    #return template('profil.html')
 
 @route('/register')
 def register():
@@ -40,7 +55,10 @@ def do_register():
     password = request.forms.password
 
     user_service.register_user(email, nickname, password)
-    # return template('login.html')
+
+    # if successful, redirect to login
+    redirect(url('/login'))
+    #return template('login.html')
 
 @route('/api')
 def api():
