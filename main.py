@@ -57,6 +57,10 @@ def get_all_sightings():
 def get_all_users():
     user_service.get_all_users()
 
+@route('/add_sighting')
+def add_sighting():
+    return template('add_sighting.html')
+
 if __name__ == '__main__':
     clean_install_flag = False
     args = sys.argv
