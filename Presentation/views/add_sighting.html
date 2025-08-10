@@ -127,62 +127,85 @@
   </div>
 
   <script>
-    const form = document.getElementById('sightingForm');
-    const tableBody = document.querySelector('#sightingsTable tbody');
-    const STORAGE_KEY = 'ufo_sightings_v1';
+  const form = document.getElementById('sightingForm');
+  const tableBody = document.querySelector('#sightingsTable tbody');
+  const STORAGE_KEY = 'ufo_sightings_v1';
 
-    function loadSightings(){
-      const raw = localStorage.getItem(STORAGE_KEY);
-      try{return raw ? JSON.parse(raw) : [];}catch{return []}
-    }
-    function saveSightings(list){localStorage.setItem(STORAGE_KEY, JSON.stringify(list));}
-    function escapeHtml(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}
-    function render(){
-      const list = loadSightings();
-      tableBody.innerHTML = '';
-      list.forEach((s,i)=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${s.date||''}</td>
-          <td>${escapeHtml(s.location||'')}</td>
-          <td>${escapeHtml(s.description||'')}</td>
-          <td>${escapeHtml(s.witness||'')}</td>
-          <td><details><summary>${s.prompt? (s.prompt.slice(0,40)+'...') : '—'}</summary><div style="white-space:pre-wrap">${escapeHtml(s.prompt||'')}</div></details></td>
-          <td><button data-index="${i}" class="deleteBtn">Delete</button></td>`;
-        tableBody.appendChild(tr);
-      });
-    }
-    form.addEventListener('submit', e=>{
-      e.preventDefault();
-      const data = {
-        date: document.getElementById('date').value,
-        location: document.getElementById('location').value.trim(),
-        witness: document.getElementById('witness').value.trim(),
-        description: document.getElementById('description').value.trim(),
-        prompt: document.getElementById('prompt').value.trim(),
-      };
-      const list = loadSightings();
-      list.unshift(data);
-      saveSightings(list);
-      form.reset();
-      render();
+  function loadSightings(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    try{return raw ? JSON.parse(raw) : [];}catch{return []}
+  }
+  function saveSightings(list){localStorage.setItem(STORAGE_KEY, JSON.stringify(list));}
+  function escapeHtml(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}
+  function render(){
+    const list = loadSightings();
+    tableBody.innerHTML = '';
+    list.forEach((s,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${s.date||''}</td>
+        <td>${escapeHtml(s.location||'')}</td>
+        <td>${escapeHtml(s.description||'')}</td>
+        <td>${escapeHtml(s.witness||'')}</td>
+        <td><details><summary>${s.prompt? (s.prompt.slice(0,40)+'...') : '—'}</summary><div style="white-space:pre-wrap">${escapeHtml(s.prompt||'')}</div></details></td>
+        <td><button data-index="${i}" class="deleteBtn">Delete</button></td>`;
+      tableBody.appendChild(tr);
     });
-    document.getElementById('clearBtn').addEventListener('click', ()=>{
-      if(confirm('Clear all saved sightings?')){
-        localStorage.removeItem(STORAGE_KEY);
-        render();
-      }
-    });
-    tableBody.addEventListener('click', e=>{
-      if(e.target.matches('.deleteBtn')){
-        const idx = Number(e.target.dataset.index);
-        const list = loadSightings();
-        list.splice(idx,1);
-        saveSightings(list);
-        render();
-      }
-    });
+  }
+
+  form.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const data = {
+      date: document.getElementById('date').value,
+      location: document.getElementById('location').value.trim(),
+      witness: document.getElementById('witness').value.trim(),
+      description: document.getElementById('description').value.trim(),
+      prompt: document.getElementById('prompt') ? document.getElementById('prompt').value.trim() : ""
+    };
+
+    // Save locally
+    const list = loadSightings();
+    list.unshift(data);
+    saveSightings(list);
     render();
-  </script>
+    form.reset();
+
+    // --- NEW: send to backend API ---
+    try {
+      const res = await fetch('/api/sightings', { // <-- change to your actual API URL if different
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error(`Server error: ${res.status}`);
+      const result = await res.json();
+      console.log('Saved to backend:', result);
+    } catch (err) {
+      console.error('Failed to send to backend:', err);
+    }
+    // --- END NEW ---
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    if(confirm('Clear all saved sightings?')){
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+    }
+  });
+
+  tableBody.addEventListener('click', e=>{
+    if(e.target.matches('.deleteBtn')){
+      const idx = Number(e.target.dataset.index);
+      const list = loadSightings();
+      list.splice(idx,1);
+      saveSightings(list);
+      render();
+    }
+  });
+
+  render();
+</script>
+
+
 </body>
 </html>

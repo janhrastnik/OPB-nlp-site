@@ -10,3 +10,7 @@ class SightingService:
     
     def get_all_sightings(self) -> List[Sighting]:
         return self.repo.get_all_sightings()
+
+
+    def add_sighting(date, location, description, witness):
+        Repo.add_sighting(date, location, description, witness)

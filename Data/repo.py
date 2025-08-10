@@ -70,3 +70,14 @@ class Repo:
     
     # TODO: we will need methods that get users, comments etc.
         
+
+
+    def add_sighting(date, location, description, witness):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO sightings (date, location, description, witness)
+            VALUES (?, ?, ?, ?)
+        """, (date, location, description, witness))
+        conn.commit()
+        conn.close()
