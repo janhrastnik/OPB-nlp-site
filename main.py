@@ -15,10 +15,22 @@ database_setup = DatabaseSetup()
 def hello():
     return template('home.html')
 
+@route('/')
+def index():
+    return template('index.html')
 
 @route('/profil')
 def profil():
-    return template('profil.html')
+    user_cookie = request.get_cookie('user')
+    print(user_cookie)
+
+    # TODO: get rest of needed user info from cookie
+
+    email = "did not find email"
+    if user_cookie:
+        email = user_cookie
+
+    return template('profil.html', email=email)
 
 @route('/login')
 def login():
@@ -30,19 +42,20 @@ def do_login():
     password = request.forms.password
     
     if not user_service.user_exists(email):
+        print("USER DOES NOT EXIST IN DATABASE")
         # user isn't registered
         # TODO: tell user this email isn't registered
-        pass
+        redirect(url('/register'))
+    else:
+        login_res = user_service.login(email, password)
 
-    login_res = user_service.login(email, password)
-
-    if login_res:
-        # login succeeded
-        # TODO: maybe setup cookies in a safer way
-        response.set_cookie('user', email)
+        if login_res:
+            # login succeeded
+            # TODO: maybe setup cookies in a safer way
+            response.set_cookie('user', email)
     
-    redirect(url('/profil'))
-    #return template('profil.html')
+        redirect(url('/profil'))
+        #return template('profil.html')
 
 @route('/register')
 def register():
@@ -59,6 +72,12 @@ def do_register():
     # if successful, redirect to login
     redirect(url('/login'))
     #return template('login.html')
+
+@post('/logout')
+def do_logout():
+    response.delete_cookie('email')
+    redirect(url('/'))
+
 
 @route('/api')
 def api():
@@ -87,6 +106,7 @@ if __name__ == '__main__':
             clean_install_flag = True
 
     if database_setup.should_setup() or clean_install_flag:
+        print("SETTING UP THE DATABASE")
         database_setup.setup()
     run(host='localhost', port = 8080, debug=True)
 

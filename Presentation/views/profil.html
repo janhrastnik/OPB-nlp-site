@@ -1,57 +1,38 @@
-<!DOCTYPE html>
+%rebase('main.html')
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Profile</title>
+<title>My Profile</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+<style>
+  .profile-box {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    max-width: 500px;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      background-color: #000000;
-    }
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2em;
+    color: #00ffff;
+    margin-bottom: 20px;
+  }
 
-    .profile-box {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 40px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-      max-width: 500px;
-    }
+  .profile-info {
+    font-size: 1.1em;
+    color: #e0e0e0;
+    line-height: 1.8;
+  }
+</style>
 
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.2em;
-      color: #00ffff;
-      margin-bottom: 20px;
-    }
-
-    .profile-info {
-      font-size: 1.1em;
-      color: #e0e0e0;
-      line-height: 1.8;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="profile-box">
-    <h1>My Profile</h1>
+<div class="content-page">
+  <div class="content-container w-50">
+    <h2>My Profile</h2>
     <div class="profile-info">
-      <p><strong>Username:</strong> space_watcher23</p>
+      <p><strong>Username:</strong> {{email}}</p>
       <p><strong>Email:</strong> space_watcher23@example.com</p>
       <p><strong>Number of Inputs:</strong> 42</p>
     </div>
   </div>
-</body>
-</html>
+</div>

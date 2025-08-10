@@ -3,30 +3,6 @@
 <title>Login</title>
 
 <style>
-  .login-page {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #97FEED;
-  }
-
-  .login-container {
-    background: rgba(10, 10, 20, 0.60);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #97FEED;
-    width: 320px;
-    text-align: center;
-  }
-
-  h2 {
-    margin-bottom: 24px;
-    text-shadow: 0 0 8px #35A29F;
-  }
-
   input[type="email"],
   input[type="password"] {
     width: 100%;
@@ -44,41 +20,17 @@
     border-color: #97FEED;
     box-shadow: 0 0 10px #97FEED;
   }
-
-  .login-btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 16px;
-    background-color: #F6F1E9;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 0 8px #97FEED, 0 0 8px #97FEED inset;
-  }
-
-  .login-btn:hover {
-    background-color: #97FEED;
-    box-shadow: 0 0 16px #97FEED, 0 0 16px #97FEED inset;
-  }
 </style>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-
-<div class="login-page">
-  <div class="login-container">
+<div class="content-page">
+  <div class="content-container">
     <h2>Login</h2>
     <form action="/do_login" method="post">
       <input type="email" name="email" placeholder="Email Address" required>
       <input type="password" name="password" placeholder="Password" required>
-      <button type="submit" class="login-btn">Sign In</button>
+      <button type="submit" class="alien-btn">Sign In</button>
     </form>
-    <a href="/register"><button class="login-btn">Register</button></a>
+    <a href="/register"><button class="alien-btn">Register</button></a>
   </div>
 </div>
 

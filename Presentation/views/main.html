@@ -1,72 +1,137 @@
 <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-            <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <style>
-              body {
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                background: radial-gradient(circle at top, #0B666A 0%, #071952 100%);
-                font-family: 'Orbitron', sans-serif;
-                color: #97FEED;
-                display: flex;
-                flex-flow: column;
-              }
-              .page-container {
-                flex: 1;
-              }
+      <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-              .alien-font {
-                font-family: 'Orbitron', sans-serif;
-                color: #97FEED;
-              }
+      <!-- Google Font -->
+      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 
-              a {
-                text-decoration: none;
-              }
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          background: radial-gradient(circle at top, #0B666A 0%, #071952 100%);
+          font-family: 'Orbitron', sans-serif;
+          color: #97FEED;
+          display: flex;
+          flex-flow: column;
+        }
 
-              a:hover {
-                text-decoration: underline;  
-              }
+        h2 {
+          margin-bottom: 24px;
+          text-shadow: 0 0 8px #35A29F;
+        }
 
-              .login-nav {
-                
-              }
-            </style>
-         </head>
-        <body>
-            <nav class="navbar navbar-expand-lg">
-              <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav w-100">
-                    <li class="nav-item mx-3">
-                      <a class="active alien-font" aria-current="page" href="/">NLP Site</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                      <a class="alien-font" href="#">All Sightings</a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                      <a class="alien-font" href="#">Login</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
+        .content-page {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #97FEED;
+        }
 
-            <div class="page-container">
-                {{!base}}
-            </div>
-        </body>
+        .content-container {
+          background: rgba(10, 10, 20, 0.60);
+          padding: 40px;
+          border-radius: 15px;
+          box-shadow: 0 0 25px #97FEED;
+          width: 340px;
+          text-align: center;
+        }
+
+        .page-container {
+          flex: 1;
+        }
+
+        .alien-btn {
+          width: 100%;
+          padding: 12px;
+          margin-top: 16px;
+          background-color: #F6F1E9;
+          color: #000;
+          border: none;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          cursor: pointer;
+          transition: 0.3s;
+          box-shadow: 0 0 8px #97FEED, 0 0 8px #97FEED inset;
+        }
+
+        .alien-btn:hover {
+          background-color: #97FEED;
+          box-shadow: 0 0 16px #97FEED, 0 0 16px #97FEED inset;
+        }
+
+        .alien-font {
+          font-family: 'Orbitron', sans-serif;
+          color: #97FEED;
+        }
+
+        a {
+          text-decoration: none;
+        }
+
+        a:hover {
+          text-decoration: underline;  
+        }
+
+        .logout-nav {
+          background: none;
+          border:none;
+        }
+
+        .logout-nav:hover {
+          text-decoration: underline;
+        }
+      </style>
+   </head>
+  <body>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100">
+              <li class="nav-item mx-3">
+                <a class="active alien-font" aria-current="page" href="/">NLP Site</a>
+              </li>
+              <li class="nav-item mx-3">
+                <a class="alien-font" href="#">All Sightings</a>
+              </li>
+              % if not defined('email'):
+              <li class="nav-item ms-auto">
+                <a class="alien-font" href="/login">Login</a>
+              </li>
+              % else:
+              <li class="nav-item ms-auto">
+                <form action="/logout" method="post">
+                  <input class="alien-font logout-nav" type="submit" value="Logout"/>
+                </form>
+              </li>
+              % end
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="page-container">
+          {{!base}}
+      </div>
+
+      <script>
+      </script>
+    </body>
 </html>
