@@ -45,6 +45,8 @@ class Repo:
                 '{hashed_password}'
             );""")
 
+        self.conn.commit()
+
     def user_exists(self, email: str) -> bool:
 
         user_exists_flag = False
@@ -73,11 +75,8 @@ class Repo:
 
 
     def add_sighting(date, location, description, witness):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute("""
+        self.cur.execute("""
             INSERT INTO sightings (date, location, description, witness)
             VALUES (?, ?, ?, ?)
         """, (date, location, description, witness))
-        conn.commit()
-        conn.close()
+        self.conn.commit()
