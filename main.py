@@ -1,4 +1,4 @@
-from bottle import run, route, template, get, post, request
+from bottle import run, route, template, get, post, request, hook
 from bottle import TEMPLATE_PATH, response, redirect, url
 from Services.sighting_service import SightingService
 from Data.db_setup import DatabaseSetup
@@ -11,30 +11,36 @@ sighting_service = SightingService()
 user_service = UserService()
 database_setup = DatabaseSetup()
 
+email = None
+
+def custom_template(template_name, **kwargs):
+    return template(template_name, email=email, **kwargs)
+
+@hook('before_request')
+def cookies_check():
+    # if a user cookie exists, then the user is logged in
+    # the cookies value is the users email
+    user_cookie = request.get_cookie('user')
+
+    email = user_cookie
+
 @route('/hello')
 def hello():
-    return template('home.html')
+    return custom_template('home.html')
 
 @route('/')
 def index():
-    return template('index.html')
+    return custom_template('index.html')
 
 @route('/profil')
 def profil():
-    user_cookie = request.get_cookie('user')
-    print(user_cookie)
-
     # TODO: get rest of needed user info from cookie
 
-    email = "did not find email"
-    if user_cookie:
-        email = user_cookie
-
-    return template('profil.html', email=email)
+    return custom_template('profil.html')
 
 @route('/login')
 def login():
-    return template('login.html')
+    return custom_template('login.html')
 
 @post('/do_login')
 def do_login():
@@ -59,7 +65,7 @@ def do_login():
 
 @route('/register')
 def register():
-    return template('register.html')
+    return custom_template('register.html')
 
 @post('/do_register')
 def do_register():
@@ -75,13 +81,13 @@ def do_register():
 
 @post('/logout')
 def do_logout():
-    response.delete_cookie('email')
+    response.delete_cookie('user')
     redirect(url('/'))
 
 
 @route('/api')
 def api():
-    return template('api.html')
+    return custom_template('api.html')
 
 @get('/get_all_sightings')
 def get_all_sightings():
@@ -94,9 +100,26 @@ def get_all_sightings():
 def get_all_users():
     user_service.get_all_users()
 
+@route('/all_sightings')
+def all_sightings():
+
+    page = 1
+    query = request.query_string
+
+    if query.startswith("page="):
+        try:
+            page = int(query[5:])
+        except ValueError:
+            # query parameter is wrong, just redirect user back to original page
+            redirect(url('/all_sightings'))
+    
+    print(page)
+    
+    return custom_template('all_sightings.html')
+
 @route('/add_sighting')
 def add_sighting():
-    return template('add_sighting.html')
+    return custom_template('add_sighting.html')
 
 if __name__ == '__main__':
     clean_install_flag = False
@@ -108,5 +131,6 @@ if __name__ == '__main__':
     if database_setup.should_setup() or clean_install_flag:
         print("SETTING UP THE DATABASE")
         database_setup.setup()
+
     run(host='localhost', port = 8080, debug=True)
 

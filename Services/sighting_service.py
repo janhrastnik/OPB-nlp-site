@@ -11,6 +11,8 @@ class SightingService:
     def get_all_sightings(self) -> List[Sighting]:
         return self.repo.get_all_sightings()
 
+    def get_sightings_paginated(self, page: int) -> List[Sighting]:
+        return self.repo.get_sightings_paginated(page)
 
     def add_sighting(date, location, description, witness):
-        Repo.add_sighting(date, location, description, witness)
+        self.repo.add_sighting(date, location, description, witness)

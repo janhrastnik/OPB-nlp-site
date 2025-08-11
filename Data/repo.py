@@ -15,15 +15,20 @@ class Repo:
             SELECT * FROM sightings
             """)
 
-        # TODO: have this data typed and send it to the Service and Presentation layers 
         res = self.cur.fetchall()
 
-        #print(type(res))
-        #print(type(res[0]))
-        #print(dict(res[0]))
         sightings = [Sighting.from_dict(x) for x in res]
 
-        #print(res)
+        return sightings
+
+    def get_sightings_paginated(self, page: int) -> List[Sighting]:
+        self.cur.execute(f"""
+            SELECT * FROM sightings WHERE ID BETWEEN {10*(page-1)+1} AND {10*(page)+1}
+            """)
+
+        res = self.cur.fetchall()
+
+        sightings = [Sighting.from_dict(x) for x in res]
 
         return sightings
 
