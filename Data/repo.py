@@ -12,7 +12,7 @@ class Repo:
 
     def get_all_sightings(self) -> List[Sighting]:
         self.cur.execute("""
-            SELECT * FROM sightings
+            SELECT * FROM sightings;
             """)
 
         res = self.cur.fetchall()
@@ -23,7 +23,7 @@ class Repo:
 
     def get_sightings_paginated(self, page: int) -> List[Sighting]:
         self.cur.execute(f"""
-            SELECT * FROM sightings WHERE ID BETWEEN {10*(page-1)+1} AND {10*(page)+1}
+            SELECT * FROM sightings LIMIT 10 OFFSET {10*(page-1)};
             """)
 
         res = self.cur.fetchall()
@@ -34,7 +34,7 @@ class Repo:
 
     def get_all_users(self):
         self.cur.execute("""
-            SELECT * FROM users
+            SELECT * FROM users;
             """)
 
         # TODO: have this data typed and send it to the Service and Presentation layers 
@@ -57,7 +57,7 @@ class Repo:
         user_exists_flag = False
 
         self.cur.execute(f"""
-            SELECT 1 FROM users WHERE email = '{email}'    
+            SELECT 1 FROM users WHERE email = '{email}';
             """)
 
         if self.cur.fetchone():
@@ -68,7 +68,7 @@ class Repo:
     def get_user(self, email: str) -> User:
 
         self.cur.execute(f"""
-            SELECT * FROM users WHERE email = '{email}'
+            SELECT * FROM users WHERE email = '{email}';
             """)
 
         user = User.from_dict(self.cur.fetchone())

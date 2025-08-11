@@ -22,6 +22,7 @@ def cookies_check():
     # the cookies value is the users email
     user_cookie = request.get_cookie('user')
 
+    global email
     email = user_cookie
 
 @route('/hello')
@@ -112,10 +113,10 @@ def all_sightings():
         except ValueError:
             # query parameter is wrong, just redirect user back to original page
             redirect(url('/all_sightings'))
+
+    sightings = sighting_service.get_sightings_paginated(page)
     
-    print(page)
-    
-    return custom_template('all_sightings.html')
+    return custom_template('all_sightings.html', sightings=sightings)
 
 @route('/add_sighting')
 def add_sighting():
