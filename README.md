@@ -10,6 +10,17 @@ To opažanje se nato shrani v Postgresql podatkovni bazi, poleg drugih opažanj.
 
 Začetni podatki za stran prihajajo s podatkovne zbirke s strani Kaggle. Ta vsebuje čez 80.000 zgodovinskih opažanj NLP-jev, in iz tam izhaja struktura, ki jo bomo uporabili za objekt opažanja.
 
+## Navodila za uporabo
+Preverjeno da deluje na Windows in Linux.
+1. Kloniraj projekt v lokalno mapo z `git clone` ukazom
+2. V mapi projekta (kjer se nahaja tudi `main.py`) ustvari novo Python virtualno okolje
+3. Znotraj virtualnega okolja inštaliraj potrebne knjižnice z `pip install -r requirements.txt` (morda MacOS potrebuje drug psycopg2 tukaj)
+4. Ustvari novo prazno postgresql bazo, namenjeno za ta projekt
+5. Ustvari in dopolni `Data/auth.py`, za zgled uporabi `Data/auth_public.py`, le s tem se projekt uspe povezati na bazo iz prejšnega koraka
+6. Zaženi projekt znotraj virtualnega okolja z `python main.py`, ob prvem zagonu bi se morala dopolniti baza s potrebnimi podatki
+
+Bazo se da resetirati na prvotno stanje z ukazom `python main.py --clean`.
+
 ## ER-diagram
 
 ![Slika ER diagrama](er_diagram/diagram.png)
