@@ -118,9 +118,41 @@ def all_sightings():
     
     return custom_template('all_sightings.html', sightings=sightings)
 
+
 @route('/add_sighting')
 def add_sighting():
     return custom_template('add_sighting.html')
+
+
+@post('/do_add_sighting')
+def do_add_sighting():
+    print(dict(request.forms))
+    timestamp = request.forms.get('user_timestamp')
+    city = request.forms.get('city')
+    state = request.forms.get('state')
+    country = request.forms.get('country')
+    shape = request.forms.get('shape')
+    duration_seconds = float(request.forms.get('duration_seconds') or 0)
+    comment = request.forms.get('comment')
+    latitude = float(request.forms.get('latitude') or 0)
+    langtitude = float(request.forms.get('langtitude') or 0)
+
+    sighting_service.add_sighting(
+        timestamp,
+        city,
+        state,
+        country,
+        shape,
+        duration_seconds,
+        comment,
+        latitude,
+        langtitude
+    )
+
+    return redirect('/profil')
+
+
+
 
 if __name__ == '__main__':
     clean_install_flag = False
