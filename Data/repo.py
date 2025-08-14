@@ -79,9 +79,18 @@ class Repo:
         
 
 
-    def add_sighting(date, location, description, witness):
+    def add_sighting(self, sighting: Sighting):
+        coords = f"{sighting.coords}"  # coords should already be in "lat, long" format
         self.cur.execute("""
-            INSERT INTO sightings (date, location, description, witness)
-            VALUES (?, ?, ?, ?)
-        """, (date, location, description, witness))
+            INSERT INTO sightings (title, sighting_date, description, coords, duration, user_id, creation_date)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (
+            sighting.title,
+            sighting.sighting_date.strftime("%Y-%m-%d %H:%M:%S"),
+            sighting.description,
+            coords,
+            sighting.duration,
+            sighting.user_id,
+            sighting.creation_date.strftime("%Y-%m-%d %H:%M:%S")
+        ))
         self.conn.commit()
