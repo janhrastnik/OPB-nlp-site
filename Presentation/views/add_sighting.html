@@ -1,72 +1,53 @@
 %rebase('main.html')
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add UFO Sighting</title>
+
+<title>Add UFO Sighting</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: radial-gradient(circle at top, #0a0f2c, #000);
-            color: #cce7ff;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: #6ec1ff;
-            text-shadow: 0 0 10px #00f0ff;
-        }
-        form {
-            background-color: rgba(10, 20, 60, 0.85);
-            border-radius: 10px;
-            padding: 20px;
-            display: inline-block;
-            text-align: left;
-            box-shadow: 0 0 15px #00aaff;
-            width: 320px;
-        }
-        label {
+         #sightingForm label {
             display: block;
-            margin-top: 10px;
+            margin-top: 22px;
             font-weight: bold;
             color: #9cd0ff;
-        }
-        input, select, textarea {
-            width: 100%;
+          }
+         #sightingForm input, select, textarea {
+            width: 80%;
             padding: 8px;
-            margin-top: 4px;
+            margin-top: 8px;
             border: none;
             border-radius: 5px;
             background-color: #1a2947;
             color: #ffffff;
-        }
-        input[type="submit"] {
+          }
+         #sightingForm input[type="submit"] {
             background-color: #007acc;
             cursor: pointer;
             margin-top: 15px;
             font-size: 16px;
             box-shadow: 0 0 10px #00f0ff;
-        }
-        input[type="submit"]:hover {
+          }
+         #sightingForm  input[type="submit"]:hover {
             background-color: #0099ff;
-        }
+          }
     </style>
-</head>
-<body>
-    <h1>👽 Add UFO Sighting 👽</h1>
 
-    <form id="sightingForm" action="/do_add_sighting" method="post">
+<div class="content-page">
+  <div class="content-container w-50">
+
+    <h2>👽 Add UFO Sighting 👽</h2>
+
+    <form id="sightingForm" class="mt-5" action="/do_add_sighting" method="post">
         <!-- User timestamp -->
         <label for="user_timestamp">Sighting Date & Time (YYYY-MM-DD HH:MM:SS):</label>
-        <input type="text" id="user_timestamp" name="user_timestamp" placeholder="2025-08-14 20:55:00" required>
+        <input type="text" id="user_timestamp" name="user_timestamp" value="2025-08-14 20:55:00" placeholder="2025-08-14 20:55:00" required>
 
         <label for="city">City:</label>
-        <input type="text" id="city" name="city" required>
+        <input type="text" id="city" name="city" placeholder="Ljubljana" required>
 
         <label for="state">State:</label>
-        <input type="text" id="state" name="state" required>
+        <input type="text" id="state" name="state" placeholder="Ljubljana" required>
 
         <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required>
+        <input type="text" id="country" name="country" placeholder="Slovenija" required>
 
         <label for="shape">Shape:</label>
         <select id="shape" name="shape" required>
@@ -78,18 +59,20 @@
         </select>
 
         <label for="duration_seconds">Duration (seconds):</label>
-        <input type="number" id="duration_seconds" name="duration_seconds" min="0" step="1">
+        <input type="number" id="duration_seconds" name="duration_seconds" placeholder="120" min="0" step="1">
 
         <label for="comment">Comment:</label>
         <textarea id="comment" name="comment" rows="3" placeholder="Describe what you saw..."></textarea>
 
         <label for="latitude">Latitude:</label>
-        <input type="number" id="latitude" name="latitude" step="any" required>
+        <input type="number" id="latitude" name="latitude" step="any" placeholder="46.0569" required>
 
         <label for="langtitude">Longitude:</label>
-        <input type="number" id="langtitude" name="langtitude" step="any" required>
+        <input type="number" id="langtitude" name="langtitude" step="any" placeholder="14.5058" required>
 
-        <input type="submit" value="Add Sighting">
+        <div class="d-flex mx-auto" style="width: 80%;">
+            <button class="alien-btn mt-4 ms-auto" type="submit">Add Sighting</button>
+        </div>
     </form>
-</body>
-</html>
+  </div>
+</div>

@@ -47,6 +47,7 @@
           justify-content: center;
           align-items: center;
           color: #97FEED;
+          flex-direction: column;
         }
 
         .content-container {
@@ -55,15 +56,17 @@
           border-radius: 15px;
           box-shadow: 0 0 25px #97FEED;
           width: 340px;
+          margin-top: 32px;
+          margin-bottom: 32px;
           text-align: center;
         }
 
         .page-container {
           flex: 1;
+          height: 100%;
         }
 
         .alien-btn {
-          width: 100%;
           padding: 12px;
           margin-top: 16px;
           background-color: #F6F1E9;
@@ -125,11 +128,16 @@
                 <a class="alien-font" href="/login">Login</a>
               </li>
               % else:
-              <li class="nav-item ms-auto">
-                <form action="/logout" method="post">
-                  <input class="alien-font logout-nav" type="submit" value="Logout"/>
-                </form>
-              </li>
+              <div class="ms-auto row">
+                <li class="nav-item col">
+                  <a class="active alien-font" aria-current="page" href="/profil">Profile</a>
+                </li>
+                <li class="nav-item col">
+                  <form action="/logout" method="post">
+                    <input class="alien-font logout-nav" type="submit" value="Logout"/>
+                  </form>
+                </li>
+              </div>
               % end
             </ul>
           </div>
