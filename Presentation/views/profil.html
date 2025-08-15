@@ -16,16 +16,20 @@
     font-size: 1.1em;
     color: #e0e0e0;
     line-height: 1.8;
+    text-align: start;
   }
 </style>
 
 <div class="content-page">
   <div class="content-container w-50">
     <h2>My Profile</h2>
-    <div class="profile-info">
-      <p><strong>Username:</strong>{{username}}</p>
-      <p><strong>Email:</strong> {{email}}</p>
-      <p><strong>Number of Sightings:</strong> {{len(sightings)}}</p>
+    <div class="row">
+      <img src="/static/alien_profile.png" class="col-4" alt="Placeholder profile image">
+      <div class="profile-info col-8">
+        <p><strong>Username: </strong>{{username}}</p>
+        <p><strong>Email: </strong> {{email}}</p>
+        <p><strong>Number of Sightings: </strong> {{len(sightings)}}</p>
+      </div>
     </div>
   </div>
 

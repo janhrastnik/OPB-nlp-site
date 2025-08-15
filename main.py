@@ -1,6 +1,6 @@
 from functools import wraps
 from bottle import run, route, template, get, post, request, hook
-from bottle import TEMPLATE_PATH, response, redirect, url
+from bottle import TEMPLATE_PATH, response, redirect, url, static_file
 from Services.sighting_service import SightingService
 from Data.db_setup import DatabaseSetup
 from Services.user_service import UserService
@@ -43,6 +43,10 @@ def cookies_check():
 @route('/')
 def index():
     return custom_template('index.html')
+
+@get('/static/<filename:path>')
+def static(filename):
+    return static_file(filename, root='Presentation/static')
 
 @route('/profil')
 @cookie_required
