@@ -1,3 +1,4 @@
+from functools import wraps
 from bottle import run, route, template, get, post, request, hook
 from bottle import TEMPLATE_PATH, response, redirect, url
 from Services.sighting_service import SightingService
@@ -16,6 +17,20 @@ email = None
 def custom_template(template_name, **kwargs):
     return template(template_name, email=email, **kwargs)
 
+def cookie_required(f):
+    """
+    Dekorator, ki zahteva veljaven piškotek. Če piškotka ni, uporabnika preusmeri na stran za prijavo.
+    Prirejeno iz: https://github.com/gasperxy/opb-struktura-projekta 
+    """
+    @wraps(f)
+    def decorated( *args, **kwargs):
+        cookie = request.get_cookie("user")
+        if cookie and cookie != "":
+            return f(*args, **kwargs)
+        redirect(url('/login'))
+        
+    return decorated
+
 @hook('before_request')
 def cookies_check():
     # if a user cookie exists, then the user is logged in
@@ -25,19 +40,20 @@ def cookies_check():
     global email
     email = user_cookie
 
-@route('/hello')
-def hello():
-    return custom_template('home.html')
-
 @route('/')
 def index():
     return custom_template('index.html')
 
 @route('/profil')
+@cookie_required
 def profil():
     # TODO: get rest of needed user info from cookie
+    user_cookie = request.get_cookie('user')
 
-    return custom_template('profil.html')
+    user = user_service.get_user(user_cookie)
+    sightings = sighting_service.get_user_sightings(user_cookie)
+    
+    return custom_template('profil.html', sightings=sightings, username=user.username)
 
 @route('/login')
 def login():
@@ -120,11 +136,13 @@ def all_sightings():
 
 
 @route('/add_sighting')
+@cookie_required
 def add_sighting():
     return custom_template('add_sighting.html')
 
 
 @post('/do_add_sighting')
+@cookie_required
 def do_add_sighting():
     print(dict(request.forms))
     timestamp = request.forms.get('user_timestamp')
@@ -137,7 +155,10 @@ def do_add_sighting():
     latitude = float(request.forms.get('latitude') or 0)
     langtitude = float(request.forms.get('langtitude') or 0)
 
+    user_cookie = request.get_cookie('user')
+
     sighting_service.add_sighting(
+        user_cookie,
         timestamp,
         city,
         state,

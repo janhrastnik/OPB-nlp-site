@@ -17,6 +17,7 @@ class Sighting:
 @dataclass_json
 @dataclass
 class User:
+    id: int = field(default=0)
     username: str = field(default="")
     email: str = field(default="")
     password: str = field(default="")

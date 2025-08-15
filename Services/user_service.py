@@ -24,6 +24,9 @@ class UserService:
     def user_exists(self, email: str) -> bool:
         return self.repo.user_exists(email)
 
+    def get_user(self, email: str) -> User:
+        return self.repo.get_user(email)
+
     def login(self, email: str, password: str) -> User | bool:
         user = self.repo.get_user(email)
         ph = PasswordHasher()

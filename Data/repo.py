@@ -32,6 +32,17 @@ class Repo:
 
         return sightings
 
+    def get_user_sightings(self, user_id: int) -> List[Sighting]:
+        self.cur.execute(f"""
+            SELECT * FROM sightings WHERE user_id = {user_id};
+            """)
+
+        res = self.cur.fetchall()
+
+        sightings = [Sighting.from_dict(x) for x in res]
+
+        return sightings
+
     def get_all_users(self):
         self.cur.execute("""
             SELECT * FROM users;
@@ -40,7 +51,9 @@ class Repo:
         # TODO: have this data typed and send it to the Service and Presentation layers 
         res = self.cur.fetchall()
 
-        print(res)
+        users = [User.from_dict(x) for x in res]
+
+        print(users)
 
     def add_new_user(self, email: str, nickname: str, hashed_password: str):
         self.cur.execute(f"""
@@ -75,10 +88,6 @@ class Repo:
 
         return user
     
-    # TODO: we will need methods that get users, comments etc.
-        
-
-
     def add_sighting(self, sighting: Sighting):
         coords = f"{sighting.coords}"  # coords should already be in "lat, long" format
         self.cur.execute("""

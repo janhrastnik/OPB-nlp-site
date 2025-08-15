@@ -23,15 +23,19 @@
   <div class="content-container w-50">
     <h2>My Profile</h2>
     <div class="profile-info">
-      <p><strong>Username:</strong>TODO</p>
+      <p><strong>Username:</strong>{{username}}</p>
       <p><strong>Email:</strong> {{email}}</p>
-      <p><strong>Number of Sightings:</strong> 42</p>
+      <p><strong>Number of Sightings:</strong> {{len(sightings)}}</p>
     </div>
   </div>
 
   <div class="content-container w-50">
     <h2>My Sightings</h2>
-    <p>TODO: list sightings here</p>
+    <div>
+      % for sighting in sightings:
+        {{sighting}}
+      % end
+    </div>
     <a href="/add_sighting"><button class="alien-btn">Report new sighting</button></a>
   </div>
 
