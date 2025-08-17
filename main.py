@@ -136,7 +136,7 @@ def all_sightings():
 
     sightings = sighting_service.get_sightings_paginated(page)
     
-    return custom_template('all_sightings.html', sightings=sightings)
+    return custom_template('all_sightings.html', page=page, sightings=sightings)
 
 
 @route('/add_sighting')

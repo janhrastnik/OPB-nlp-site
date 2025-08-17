@@ -3,9 +3,30 @@
 <title>My Profile</title>
 
 <div class="content-page">
-  <div class="content-container w-50">
+  <div class="content-container w-75">
+    <h2>All Sightings</h2>
     % for sighting in sightings:
-      {{sighting}}
+      <div class="row sighting-box my-2">
+        <div class="col-2 align-middle text-start">
+          <img src="/static/saucer.png" class="col-12 image-box mx-1 my-3" alt="Placeholder sighting image">
+        </div> 
+        <div class="col-10 text-start">
+          <div class="my-2 fs-4">{{sighting.title}}</div>
+          <div class="my-2 fs-6">Sighted at: {{sighting.sighting_date}}</div>
+          <div class="my-2 fs-6">Uploaded at: {{sighting.creation_date}}</div>
+        </div>
+      </div>
     % end
+    <div class="row mt-4">
+      <div class="col py-2 mx-4 sighting-box"> 
+        <
+      </div>
+      <div class="col py-2 mx-4 image-box"> 
+        {{page}}
+      </div>
+      <div class="col py-2 mx-4 sighting-box"> 
+        >
+      </div>
+    </div>
   </div>
 </div>
