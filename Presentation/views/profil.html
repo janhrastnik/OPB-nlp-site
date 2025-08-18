@@ -21,26 +21,44 @@
 </style>
 
 <div class="content-page">
-  <div class="content-container w-50">
+  <div class="content-container w-75">
     <h2>My Profile</h2>
     <div class="row">
-      <img src="/static/alien_profile.png" class="col-4" alt="Placeholder profile image">
+      <div class="col-4"> 
+        <img src="/static/alien_profile.png" class="col-12 image-box" alt="Placeholder profile image">
+      </div>
       <div class="profile-info col-8">
         <p><strong>Username: </strong>{{username}}</p>
         <p><strong>Email: </strong> {{email}}</p>
         <p><strong>Number of Sightings: </strong> {{len(sightings)}}</p>
+        <p><strong>Number of Comments: </strong> TODO</p>
       </div>
     </div>
   </div>
 
-  <div class="content-container w-50">
+  <div class="content-container w-75">
     <h2>My Sightings</h2>
     <div>
       % for sighting in sightings:
-        {{sighting}}
+        <div onclick="goToSighting('{{sighting.id}}')" class="row sighting-box my-2">
+          <div class="col-2 align-middle text-start">
+            <img src="/static/saucer.png" class="col-12 image-box mx-1 my-3" alt="Placeholder sighting image">
+          </div> 
+          <div class="col-10 text-start">
+            <div class="my-2 fs-4">{{sighting.title}}</div>
+            <div class="my-2 fs-6">Sighted at: {{sighting.sighting_date}}</div>
+            <div class="my-2 fs-6">Uploaded at: {{sighting.creation_date}}</div>
+          </div>
+        </div>
       % end
     </div>
     <a href="/add_sighting"><button class="alien-btn">Report new sighting</button></a>
   </div>
+
+  <script>
+    function goToSighting(sightingId) {
+      window.location.href = `/sighting/${sightingId}`;
+    }
+  </script>
 
 </div>

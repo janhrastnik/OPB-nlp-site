@@ -176,7 +176,9 @@ def do_add_sighting():
 
     return redirect('/profil')
 
-
+@route('/sighting/<sighting_id>')
+def view_sighting(sighting_id):
+    return custom_template('sighting.html')
 
 
 if __name__ == '__main__':
