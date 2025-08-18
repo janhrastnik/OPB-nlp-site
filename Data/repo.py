@@ -1,4 +1,6 @@
-import psycopg2, psycopg2.extras, psycopg2.extensions
+import psycopg2
+import psycopg2.extras
+import psycopg2.extensions
 from Data.auth import auth
 from Data.models import Sighting, User
 from typing import List
@@ -76,7 +78,7 @@ class Repo:
         if self.cur.fetchone():
             user_exists_flag = True
 
-        return user_exists_flag;
+        return user_exists_flag
 
     def get_user(self, email: str) -> User:
 

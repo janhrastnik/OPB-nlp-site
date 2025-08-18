@@ -39,12 +39,16 @@
     letter-spacing: 1px;
     cursor: pointer;
     transition: 0.3s;
-    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+    box-shadow:
+      0 0 10px #0ff,
+      0 0 20px #0ff inset;
   }
 
   .register-btn:hover {
     background-color: #00cccc;
-    box-shadow: 0 0 20px #0ff, 0 0 30px #0ff inset;
+    box-shadow:
+      0 0 20px #0ff,
+      0 0 30px #0ff inset;
   }
 
   .login-link {
@@ -69,9 +73,9 @@
   <div class="content-container">
     <h2>Alien Registration</h2>
     <form action="/do_register" method="POST">
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="text" name="nickname" placeholder="Nickname" required>
-      <input type="password" name="password" placeholder="Password" required>
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="text" name="nickname" placeholder="Nickname" required />
+      <input type="password" name="password" placeholder="Password" required />
       <button type="submit" class="alien-btn">Register</button>
     </form>
     <a href="/login"><button class="alien-btn">Back to Login</button></a>

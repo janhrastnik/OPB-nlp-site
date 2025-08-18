@@ -1,171 +1,206 @@
-<!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
 
-      <!-- Google Font -->
-      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap"
+      rel="stylesheet"
+    />
 
-      <style>
-        html {
-          min-height: 100%;
-          background-color: #071952;
-        }
-  
-        body {
-          margin: 0;
-          padding: 0;
-          min-height: 100vh;
-          background: radial-gradient(ellipse 90% 90% at top, #0B666A -30%,#071952 100%);
-          background-repeat: no-repeat;
-          background-size: 100% 100vh;
-          background-attachment: scroll;
-          background-color: transparent;
-          font-family: 'Orbitron', sans-serif;
-          color: #97FEED;
-          display: flex;
-          flex-flow: column;
-        }
+    <style>
+      html {
+        min-height: 100%;
+        background-color: #071952;
+      }
 
-        h2 {
-          margin-bottom: 24px;
-          text-shadow: 0 0 8px #35A29F;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: radial-gradient(
+          ellipse 90% 90% at top,
+          #0b666a -30%,
+          #071952 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 100% 100vh;
+        background-attachment: scroll;
+        background-color: transparent;
+        font-family: "Orbitron", sans-serif;
+        color: #97feed;
+        display: flex;
+        flex-flow: column;
+      }
 
-        .content-page {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #97FEED;
-          flex-direction: column;
-        }
+      h2 {
+        margin-bottom: 24px;
+        text-shadow: 0 0 8px #35a29f;
+      }
 
-        .content-container {
-          background: rgba(10, 10, 20, 0.60);
-          padding: 40px;
-          border-radius: 15px;
-          box-shadow: 0 0 25px #97FEED;
-          width: 340px;
-          margin-top: 32px;
-          margin-bottom: 32px;
-          text-align: center;
-        }
+      .content-page {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #97feed;
+        flex-direction: column;
+      }
 
-        .page-container {
-          flex: 1;
-          height: 100%;
-        }
+      .content-container {
+        background: rgba(10, 10, 20, 0.6);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 25px #97feed;
+        width: 340px;
+        margin-top: 32px;
+        margin-bottom: 32px;
+        text-align: center;
+      }
 
-        .image-box {
-          border: 3px solid #0B666A;
-          border-radius: 8px;
-        }
+      .page-container {
+        flex: 1;
+        height: 100%;
+      }
 
-        .sighting-box {
-          border: 3px solid #0B666A;
-          border-radius: 8px;
-        }
+      .image-box {
+        border: 3px solid #0b666a;
+        border-radius: 8px;
+      }
 
-        .sighting-box:hover {
-          border: 3px solid #97FEED;
-          border-radius: 8px;
-          box-shadow: 0 0 8px #97FEED, 0 0 8px #97FEED inset;
-          background-color: #0B666A;
-        }
+      .sighting-box {
+        border: 3px solid #0b666a;
+        border-radius: 8px;
+      }
 
-        .alien-btn {
-          padding: 12px;
-          margin-top: 16px;
-          background-color: #F6F1E9;
-          color: #000;
-          border: none;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: bold;
-          letter-spacing: 1px;
-          cursor: pointer;
-          transition: 0.3s;
-          box-shadow: 0 0 8px #97FEED, 0 0 8px #97FEED inset;
-        }
+      .sighting-box:hover {
+        border: 3px solid #97feed;
+        border-radius: 8px;
+        box-shadow:
+          0 0 8px #97feed,
+          0 0 8px #97feed inset;
+        background-color: #0b666a;
+      }
 
-        .alien-btn:hover {
-          background-color: #97FEED;
-          box-shadow: 0 0 16px #97FEED, 0 0 16px #97FEED inset;
-        }
+      .alien-btn {
+        padding: 12px;
+        margin-top: 16px;
+        background-color: #f6f1e9;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow:
+          0 0 8px #97feed,
+          0 0 8px #97feed inset;
+      }
 
-        .alien-font {
-          font-family: 'Orbitron', sans-serif;
-          color: #97FEED;
-        }
+      .alien-btn:hover {
+        background-color: #97feed;
+        box-shadow:
+          0 0 16px #97feed,
+          0 0 16px #97feed inset;
+      }
 
-        a {
-          text-decoration: none;
-        }
+      .alien-font {
+        font-family: "Orbitron", sans-serif;
+        color: #97feed;
+      }
 
-        a:hover {
-          text-decoration: underline;  
-        }
+      a {
+        text-decoration: none;
+      }
 
-        .logout-nav {
-          background: none;
-          border:none;
-        }
+      a:hover {
+        text-decoration: underline;
+      }
 
-        .logout-nav:hover {
-          text-decoration: underline;
-        }
-      </style>
-   </head>
+      .logout-nav {
+        background: none;
+        border: none;
+      }
+
+      .logout-nav:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
   <body>
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav w-100">
-              <li class="nav-item mx-3">
-                <a class="active alien-font" aria-current="page" href="/">NLP Site</a>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav w-100">
+            <li class="nav-item mx-3">
+              <a class="active alien-font" aria-current="page" href="/"
+                >NLP Site</a
+              >
+            </li>
+            <li class="nav-item mx-3">
+              <a class="alien-font" href="/all_sightings">All Sightings</a>
+            </li>
+            % if email == None:
+            <li class="nav-item ms-auto">
+              <a class="alien-font" href="/login">Login</a>
+            </li>
+            % else:
+            <div class="ms-auto row">
+              <li class="nav-item col">
+                <a class="active alien-font" aria-current="page" href="/profil"
+                  >Profile</a
+                >
               </li>
-              <li class="nav-item mx-3">
-                <a class="alien-font" href="/all_sightings">All Sightings</a>
+              <li class="nav-item col">
+                <form action="/logout" method="post">
+                  <input
+                    class="alien-font logout-nav"
+                    type="submit"
+                    value="Logout"
+                  />
+                </form>
               </li>
-              % if email == None:
-              <li class="nav-item ms-auto">
-                <a class="alien-font" href="/login">Login</a>
-              </li>
-              % else:
-              <div class="ms-auto row">
-                <li class="nav-item col">
-                  <a class="active alien-font" aria-current="page" href="/profil">Profile</a>
-                </li>
-                <li class="nav-item col">
-                  <form action="/logout" method="post">
-                    <input class="alien-font logout-nav" type="submit" value="Logout"/>
-                  </form>
-                </li>
-              </div>
-              % end
-            </ul>
-          </div>
+            </div>
+            % end
+          </ul>
         </div>
-      </nav>
-
-      <div class="page-container">
-          {{!base}}
       </div>
+    </nav>
 
-      <script>
-      </script>
-    </body>
+    <div class="page-container">{{!base}}</div>
+
+    <script></script>
+  </body>
 </html>

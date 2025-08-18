@@ -1,5 +1,4 @@
 import psycopg2
-import sys
 import os
 import random
 from Data.auth import auth

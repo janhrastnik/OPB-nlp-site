@@ -2,77 +2,138 @@
 
 <title>Add UFO Sighting</title>
 
-    <style>
-         #sightingForm label {
-            display: block;
-            margin-top: 22px;
-            font-weight: bold;
-            color: #9cd0ff;
-          }
-         #sightingForm input, select, textarea {
-            width: 80%;
-            padding: 8px;
-            margin-top: 8px;
-            border: none;
-            border-radius: 5px;
-            background-color: #1a2947;
-            color: #ffffff;
-          }
-         #sightingForm input[type="submit"] {
-            background-color: #007acc;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 16px;
-            box-shadow: 0 0 10px #00f0ff;
-          }
-         #sightingForm  input[type="submit"]:hover {
-            background-color: #0099ff;
-          }
-    </style>
+<style>
+  #sightingForm label {
+    display: block;
+    margin-top: 22px;
+    font-weight: bold;
+    color: #9cd0ff;
+  }
+  #sightingForm input,
+  select,
+  textarea {
+    width: 80%;
+    padding: 8px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a2947;
+    color: #ffffff;
+  }
+  #sightingForm input[type="submit"] {
+    background-color: #007acc;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    box-shadow: 0 0 10px #00f0ff;
+  }
+  #sightingForm input[type="submit"]:hover {
+    background-color: #0099ff;
+  }
+</style>
 
 <div class="content-page">
   <div class="content-container w-50">
-
     <h2>👽 Add UFO Sighting 👽</h2>
 
-    <form id="sightingForm" class="mt-5" action="/do_add_sighting" method="post">
-        <!-- User timestamp -->
-        <label for="user_timestamp">Sighting Date & Time (YYYY-MM-DD HH:MM:SS):</label>
-        <input type="text" id="user_timestamp" name="user_timestamp" value="2025-08-14 20:55:00" placeholder="2025-08-14 20:55:00" required>
+    <form
+      id="sightingForm"
+      class="mt-5"
+      action="/do_add_sighting"
+      method="post"
+    >
+      <!-- User timestamp -->
+      <label for="user_timestamp"
+        >Sighting Date & Time (YYYY-MM-DD HH:MM:SS):</label
+      >
+      <input
+        type="text"
+        id="user_timestamp"
+        name="user_timestamp"
+        value="2025-08-14 20:55:00"
+        placeholder="2025-08-14 20:55:00"
+        required
+      />
 
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" placeholder="Ljubljana" required>
+      <label for="city">City:</label>
+      <input
+        type="text"
+        id="city"
+        name="city"
+        placeholder="Ljubljana"
+        required
+      />
 
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" placeholder="Ljubljana" required>
+      <label for="state">State:</label>
+      <input
+        type="text"
+        id="state"
+        name="state"
+        placeholder="Ljubljana"
+        required
+      />
 
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" placeholder="Slovenija" required>
+      <label for="country">Country:</label>
+      <input
+        type="text"
+        id="country"
+        name="country"
+        placeholder="Slovenija"
+        required
+      />
 
-        <label for="shape">Shape:</label>
-        <select id="shape" name="shape" required>
-            <option value="cylinder">Cylinder</option>
-            <option value="disk">Disk</option>
-            <option value="triangle">Triangle</option>
-            <option value="sphere">Sphere</option>
-            <option value="unknown">Unknown</option>
-        </select>
+      <label for="shape">Shape:</label>
+      <select id="shape" name="shape" required>
+        <option value="cylinder">Cylinder</option>
+        <option value="disk">Disk</option>
+        <option value="triangle">Triangle</option>
+        <option value="sphere">Sphere</option>
+        <option value="unknown">Unknown</option>
+      </select>
 
-        <label for="duration_seconds">Duration (seconds):</label>
-        <input type="number" id="duration_seconds" name="duration_seconds" placeholder="120" min="0" step="1">
+      <label for="duration_seconds">Duration (seconds):</label>
+      <input
+        type="number"
+        id="duration_seconds"
+        name="duration_seconds"
+        placeholder="120"
+        min="0"
+        step="1"
+      />
 
-        <label for="comment">Comment:</label>
-        <textarea id="comment" name="comment" rows="3" placeholder="Describe what you saw..."></textarea>
+      <label for="comment">Comment:</label>
+      <textarea
+        id="comment"
+        name="comment"
+        rows="3"
+        placeholder="Describe what you saw..."
+      ></textarea>
 
-        <label for="latitude">Latitude:</label>
-        <input type="number" id="latitude" name="latitude" step="any" placeholder="46.0569" required>
+      <label for="latitude">Latitude:</label>
+      <input
+        type="number"
+        id="latitude"
+        name="latitude"
+        step="any"
+        placeholder="46.0569"
+        required
+      />
 
-        <label for="langtitude">Longitude:</label>
-        <input type="number" id="langtitude" name="langtitude" step="any" placeholder="14.5058" required>
+      <label for="langtitude">Longitude:</label>
+      <input
+        type="number"
+        id="langtitude"
+        name="langtitude"
+        step="any"
+        placeholder="14.5058"
+        required
+      />
 
-        <div class="d-flex mx-auto" style="width: 80%;">
-            <button class="alien-btn mt-4 ms-auto" type="submit">Add Sighting</button>
-        </div>
+      <div class="d-flex mx-auto" style="width: 80%">
+        <button class="alien-btn mt-4 ms-auto" type="submit">
+          Add Sighting
+        </button>
+      </div>
     </form>
   </div>
 </div>
