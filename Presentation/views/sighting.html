@@ -3,5 +3,33 @@
 <title>TODO: add title from sighting</title>
 
 <div class="content-page">
-  <div class="content-container w-50">TODO</div>
+  <div class="content-container w-75">
+
+    <div
+      onclick="goToSighting('{{sighting.id}}')"
+      class="row my-2"
+    >
+
+      <div class="col-3 align-middle text-start">
+        <img
+          src="/static/saucer.png"
+          class="col-12 image-box mx-1 my-3"
+          alt="Placeholder sighting image"
+        />
+      </div>
+      <div class="col-9 text-start">
+        <h2 class="my-2">{{sighting.title}}</h2>
+        <div class="my-2 fs-6">Sighted at: {{sighting.sighting_date}}</div>
+        <div class="my-2 fs-6">Uploaded at: {{sighting.creation_date}}</div>
+        <div class="my-2 fs-6">Coordinates: {{sighting.coords}}</div>
+        <div class="my-2 fs-6">Duration: {{sighting.description}}</div>
+        <div class="my-2 fs-6">Description: {{sighting.description}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-container w-75">
+    <h2>Comments</h2>
+
+  </div>
 </div>

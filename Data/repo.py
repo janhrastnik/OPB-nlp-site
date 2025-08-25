@@ -45,6 +45,17 @@ class Repo:
 
         return sightings
 
+    def get_sighting_by_id(self, sighting_id: int) -> Sighting:
+        self.cur.execute(f"""
+            SELECT * FROM sightings WHERE sighting_id = {user_id};
+            """)
+
+        res = self.cur.fetchone()
+
+        sighting = Sighting.from_dict(res)
+
+        return sighting
+
     def get_all_users(self):
         self.cur.execute("""
             SELECT * FROM users;

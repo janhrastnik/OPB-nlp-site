@@ -178,7 +178,10 @@ def do_add_sighting():
 
 @route('/sighting/<sighting_id>')
 def view_sighting(sighting_id):
-    return custom_template('sighting.html')
+
+    sighting = sighting_service.get_sighting_by_id(sighting_id)
+    
+    return custom_template('sighting.html', sighting=sighting)
 
 
 @delete('/sighting/<sighting_id:int>')
@@ -206,6 +209,3 @@ if __name__ == '__main__':
         database_setup.setup()
 
     run(host='localhost', port = 8080, debug=True)
-
-
-

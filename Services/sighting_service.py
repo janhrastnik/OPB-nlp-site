@@ -18,6 +18,9 @@ class SightingService:
         user = self.repo.get_user(email)
 
         return self.repo.get_user_sightings(user.id)
+
+    def get_sighting_by_id(self, sighting_id: int) -> Sighting:
+        return self.repo.get_sighting_by_id(sighting_id)
     
     def add_sighting(self, email: str, user_timestamp: str, city: str, state: str, country: str, shape: str, duration_seconds: float, comment: str, latitude: float, langtitude: float) -> Sighting:
         # Generate title: "<Shape> sighting in <City>"
