@@ -105,3 +105,19 @@ class Repo:
             sighting.creation_date.strftime("%Y-%m-%d %H:%M:%S")
         ))
         self.conn.commit()
+
+    def get_sighting_by_id(self, sighting_id: int) -> Sighting:
+        self.cur.execute("""
+            SELECT * FROM sightings WHERE id = %s;
+        """, (sighting_id,))
+        row = self.cur.fetchone()
+        if row:
+            return Sighting.from_dict(row)
+        return None
+
+    def delete_sighting(self, sighting_id: int) -> bool:
+        self.cur.execute("""
+            DELETE FROM sightings WHERE id = %s;
+        """, (sighting_id,))
+        self.conn.commit()
+        return True
