@@ -61,7 +61,6 @@ class Repo:
             SELECT * FROM users;
             """)
 
-        # TODO: have this data typed and send it to the Service and Presentation layers 
         res = self.cur.fetchall()
 
         users = [User.from_dict(x) for x in res]
@@ -132,3 +131,23 @@ class Repo:
         """, (sighting_id,))
         self.conn.commit()
         return True
+
+    def add_comment(self, email: str, comment: str, sighting_id: int):
+        # we get the user id first
+        self.cur.execute(f"""
+            SELECT id FROM users WHERE email = '{email}';
+            """)
+
+        user_id = self.cur.fetchone()
+        
+        # we add the comment
+        self.cur.execute(f"""
+            INSERT INTO comments (content, creation_date, user_id, sighting_id) VALUES (
+                '{nickname}',
+                '{email}',
+                '{email}',
+                '{hashed_password}'
+            );""")
+
+
+        self.conn.commit()

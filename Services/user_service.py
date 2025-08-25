@@ -37,5 +37,7 @@ class UserService:
             return user
 
         return False
-    
-    # TODO: add methods that register and login the user
+
+    def add_comment(self, email: str, comment: str, sighting_id: int):
+
+        self.repo.add_comment(email, comment, sighting_id)

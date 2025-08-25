@@ -21,4 +21,12 @@ class User:
     username: str = field(default="")
     email: str = field(default="")
     password: str = field(default="")
-# TODO: add other types
+
+@dataclass_json
+@dataclass
+class Comment:
+    id: int = field(default=0)
+    content: str = field(default="")
+    creation_date: datetime = field(default=datetime.now())
+    user_id: int = field(default=0)
+    sighting_id: int = field(default=0)
