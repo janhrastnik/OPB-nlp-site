@@ -57,7 +57,7 @@
             alt="Placeholder sighting image"
           />
         </div>
-        <div class="col-10 text-start">
+        <div class="col-10 px-3 text-start">
           <div class="my-2 fs-4">{{sighting.title}}</div>
           <div class="my-2 fs-6">Sighted at: {{sighting.sighting_date}}</div>
           <div class="my-2 fs-6">Uploaded at: {{sighting.creation_date}}</div>
@@ -65,11 +65,15 @@
       </div>
 
       <!-- Right: delete button -->
-      <button 
-        class="delete-btn ms-3" 
-        onclick="deleteSighting('{{sighting.id}}', event)">
-        ×
-      </button>
+      <div class="col mx-3"> 
+        <label>Delete Sighting</label>
+        <button 
+          class="delete-btn mx-3" 
+          title="Delete Sighting"
+          onclick="deleteSighting('{{sighting.id}}', event)">
+          ×
+        </button>
+      </div>
     </div>
     % end
   </div>

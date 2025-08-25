@@ -40,19 +40,26 @@
   <div class="content-container w-75">
     <h2>Comments</h2>
 
+    % for comment in comments:
+      {{comment}}
+    % end
 
-    <div class="row row-cols-auto">
-      <label class="form-label">Leave a comment</label>
-    </div>
-    <div class="form-floating">
-      <textarea class="form-control comment-box" spellcheck="false" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-    </div>
+    <form action="/do_add_comment" method="post">
+      <input type="hidden" id="sighting_id" name="sighting_id" value="{{sighting.id}}">
+    
+      <div class="row row-cols-auto">
+        <label class="form-label">Leave a comment</label>
+      </div>
+      <div class="form-floating">
+        <textarea class="form-control comment-box" spellcheck="false" placeholder="Leave a comment here" id="comment" name="comment" value="" style="height: 160px"></textarea>
+      </div>
 
-    <div class="d-flex mx-auto">
-      <button class="alien-btn mt-4 ms-auto" type="submit">
-        Add Comment
-      </button>
-    </div>
+      <div class="d-flex mx-auto">
+        <button class="alien-btn mt-4 ms-auto" type="submit">
+          Add Comment
+        </button>
+      </div>
+    </form>
 
   </div>
 </div>

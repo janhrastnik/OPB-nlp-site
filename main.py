@@ -148,7 +148,7 @@ def add_sighting():
 @post('/do_add_sighting')
 @cookie_required
 def do_add_sighting():
-    print(dict(request.forms))
+    #print(dict(request.forms))
     timestamp = request.forms.get('user_timestamp')
     city = request.forms.get('city')
     state = request.forms.get('state')
@@ -180,8 +180,22 @@ def do_add_sighting():
 def view_sighting(sighting_id):
 
     sighting = sighting_service.get_sighting_by_id(sighting_id)
+
+    comments = sighting_service.get_sighting_comments(sighting_id)
     
-    return custom_template('sighting.html', sighting=sighting)
+    return custom_template('sighting.html', sighting=sighting, comments=comments)
+
+@post('/do_add_comment')
+@cookie_required
+def do_add_comment():
+    comment = request.forms.get('comment')
+    sighting_id = int(request.forms.get('sighting_id'))
+
+    user_cookie = request.get_cookie('user')
+
+    user_service.add_comment(email, comment, sighting_id)
+
+    redirect(f'/sighting/{sighting_id}')
 
 
 @delete('/sighting/<sighting_id:int>')

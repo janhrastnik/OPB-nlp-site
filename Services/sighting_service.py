@@ -64,3 +64,6 @@ class SightingService:
             return self.repo.delete_sighting(sighting_id)
         return False
 
+    def get_sighting_comments(self, sighting_id: int):
+        return self.repo.get_sighting_comments(sighting_id)
+
