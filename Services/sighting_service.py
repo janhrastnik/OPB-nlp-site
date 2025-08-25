@@ -52,3 +52,12 @@ class SightingService:
         # Save to Repo
         self.repo.add_sighting(new_sighting)
         return new_sighting
+
+
+    def delete_sighting(self, sighting_id: int, user_email: str) -> bool:
+        user = self.repo.get_user(user_email)
+        sighting = self.repo.get_sighting_by_id(sighting_id)
+        if sighting and sighting.user_id == user.id:
+            return self.repo.delete_sighting(sighting_id)
+        return False
+

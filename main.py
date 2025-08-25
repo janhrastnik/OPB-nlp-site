@@ -1,5 +1,5 @@
 from functools import wraps
-from bottle import run, route, template, get, post, request, hook
+from bottle import run, route, template, get, post, request, hook, delete
 from bottle import TEMPLATE_PATH, response, redirect, url, static_file
 from Services.sighting_service import SightingService
 from Data.db_setup import DatabaseSetup
@@ -181,6 +181,19 @@ def view_sighting(sighting_id):
     return custom_template('sighting.html')
 
 
+@delete('/sighting/<sighting_id:int>')
+@cookie_required
+def delete_sighting(sighting_id):
+    user_email = request.get_cookie('user')
+    success = sighting_service.delete_sighting(sighting_id, user_email)
+    if success:
+        response.status = 200
+        return {'success': True}
+    else:
+        response.status = 404
+        return {'error': 'Sighting not found or not yours'}
+
+
 if __name__ == '__main__':
     clean_install_flag = False
     args = sys.argv
@@ -193,4 +206,6 @@ if __name__ == '__main__':
         database_setup.setup()
 
     run(host='localhost', port = 8080, debug=True)
+
+
 

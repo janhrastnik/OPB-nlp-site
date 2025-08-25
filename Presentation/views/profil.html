@@ -40,14 +40,16 @@
     </div>
   </div>
 
-  <div class="content-container w-75">
-    <h2>My Sightings</h2>
-    <div>
-      % for sighting in sightings:
-      <div
-        onclick="goToSighting('{{sighting.id}}')"
-        class="row sighting-box my-2"
-      >
+
+
+<div class="content-container w-75">
+  <h2>My Sightings</h2>
+  <div>
+    % for sighting in sightings:
+    <div id="sighting-{{sighting.id}}" class="sighting-box my-2 d-flex align-items-center justify-content-between">
+      
+      <!-- Left: sighting content -->
+      <div class="d-flex flex-grow-1 align-items-center sighting-content" onclick="goToSighting('{{sighting.id}}')">
         <div class="col-2 align-middle text-start">
           <img
             src="/static/saucer.png"
@@ -61,16 +63,71 @@
           <div class="my-2 fs-6">Uploaded at: {{sighting.creation_date}}</div>
         </div>
       </div>
-      % end
-    </div>
-    <a href="/add_sighting"
-      ><button class="alien-btn">Report new sighting</button></a
-    >
-  </div>
 
-  <script>
-    function goToSighting(sightingId) {
-      window.location.href = `/sighting/${sightingId}`;
-    }
-  </script>
+      <!-- Right: delete button -->
+      <button 
+        class="delete-btn ms-3" 
+        onclick="deleteSighting('{{sighting.id}}', event)">
+        ×
+      </button>
+    </div>
+    % end
+  </div>
+  <a href="/add_sighting">
+    <button class="alien-btn">Report new sighting</button>
+  </a>
 </div>
+
+<style>
+  .delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #00ffff;
+    cursor: pointer;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.8),
+                 0 0 16px rgba(0, 255, 255, 0.6);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .delete-btn:hover {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 1),
+                 0 0 24px rgba(0, 255, 255, 0.9);
+    transform: scale(1.3);
+  }
+
+  /* Smooth fade-out when deleting */
+  .fade-out {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+</style>
+
+<script>
+  function goToSighting(sightingId) {
+    window.location.href = `/sighting/${sightingId}`;
+  }
+
+  async function deleteSighting(sightingId, event) {
+    event.stopPropagation(); // don’t trigger goToSighting
+    if (!confirm("Are you sure you want to delete this sighting?")) return;
+
+    const response = await fetch(`/sighting/${sightingId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      const sightingEl = document.getElementById(`sighting-${sightingId}`);
+      sightingEl.classList.add("fade-out");
+      setTimeout(() => sightingEl.remove(), 400); // remove after fade
+    } else {
+      try {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Unknown error"}`);
+      } catch (e) {
+        alert(`Error deleting sighting (status ${response.status})`);
+      }
+    }
+  }
+</script>
