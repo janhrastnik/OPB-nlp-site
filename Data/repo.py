@@ -3,7 +3,7 @@ import psycopg2.extras
 import psycopg2.extensions
 from datetime import datetime
 from Data.auth import auth
-from Data.models import Sighting, User, Comment, CommentDto
+from Data.models import Sighting, User, CommentDto
 from typing import List
 
 # the Repo class contains methods that will fetch data from the database

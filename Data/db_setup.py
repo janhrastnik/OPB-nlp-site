@@ -10,8 +10,6 @@ for the first time.
 
 We create required tables and fill them with data, that
 we got from https://www.kaggle.com/datasets/NUFORC/ufo-sightings/data.
-
-TODO: maybe add more placeholder data here, like other users?
 """
 
 class DatabaseSetup:
