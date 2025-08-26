@@ -3,7 +3,7 @@ import psycopg2.extras
 import psycopg2.extensions
 from datetime import datetime
 from Data.auth import auth
-from Data.models import Sighting, User, Comment
+from Data.models import Sighting, User, Comment, CommentDto
 from typing import List
 
 # the Repo class contains methods that will fetch data from the database
@@ -130,8 +130,6 @@ class Repo:
 
         user_id = self.cur.fetchone()[0]
 
-        print("SIIEIE", user_id)
-        
         # we add the comment
         self.cur.execute(f"""
             INSERT INTO comments (content, creation_date, user_id, sighting_id) VALUES (
@@ -143,14 +141,32 @@ class Repo:
 
         self.conn.commit()
 
-    def get_sighting_comments(self, sighting_id: int) -> List[Comment]:
+    def get_number_of_comments(self, email) -> int:
+        # we get the user id first
         self.cur.execute(f"""
-            SELECT * FROM comments WHERE sighting_id = '{sighting_id}';
+            SELECT id FROM users WHERE email = '{email}';
+            """)
+
+        user_id = self.cur.fetchone()[0]
+
+        self.cur.execute(f"""
+                SELECT COUNT(*) FROM comments WHERE user_id = {user_id};
+            """)
+
+        res = self.cur.fetchone()[0]
+
+        return res
+
+    def get_sighting_comments(self, sighting_id: int) -> List[CommentDto]:
+        self.cur.execute(f"""
+            SELECT comments.content, comments.creation_date, users.username FROM comments 
+            INNER JOIN users ON comments.user_id = users.id
+            WHERE comments.sighting_id = '{sighting_id}';
             """)
 
         res = self.cur.fetchall()
 
-        comments = [Comment.from_dict(x) for x in res]
+        comments = [CommentDto.from_dict(x) for x in res]
 
         return comments
 

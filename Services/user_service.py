@@ -39,5 +39,7 @@ class UserService:
         return False
 
     def add_comment(self, email: str, comment: str, sighting_id: int):
-
         self.repo.add_comment(email, comment, sighting_id)
+
+    def get_number_of_comments(self, email) -> int:
+        return self.repo.get_number_of_comments(email)

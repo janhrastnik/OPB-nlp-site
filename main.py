@@ -56,8 +56,10 @@ def profil():
 
     user = user_service.get_user(user_cookie)
     sightings = sighting_service.get_user_sightings(user_cookie)
+
+    n_comments = user_service.get_number_of_comments(user_cookie)
     
-    return custom_template('profil.html', sightings=sightings, username=user.username)
+    return custom_template('profil.html', sightings=sightings, username=user.username, n_comments=n_comments)
 
 @route('/login')
 def login():

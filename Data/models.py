@@ -30,3 +30,11 @@ class Comment:
     creation_date: datetime = field(default=datetime.now())
     user_id: int = field(default=0)
     sighting_id: int = field(default=0)
+
+@dataclass_json
+@dataclass
+class CommentDto:
+    id: int = field(default=0)
+    content: str = field(default="")
+    creation_date: datetime = field(default=datetime.now())
+    username: str = field(default="")
