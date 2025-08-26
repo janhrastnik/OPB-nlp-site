@@ -9,6 +9,11 @@
   color: #97FEED !important;
 }
 
+.date-text {
+  position: relative;
+  bottom: 35px;
+}
+
 </style>
 
 <div class="content-page">
@@ -41,12 +46,22 @@
     <h2>Comments</h2>
 
     % for comment in comments:
-      {{comment}}
-      <div class="row">
-        <div class="col-3">
+      <div class="row image-box">
+        <div class="col-2">
+          <img
+            src="/static/alien_profile.png"
+            class="col-12 image-box mx-1 my-3"
+            alt="Placeholder profile image"
+          />
+          <div class="mb-2">User name</div>
         </div>
-        <div class="col-9">
+        <div class="col-10 my-4 text-start">
+          {{comment.content}}
         </div>
+      </div>
+
+      <div class="date-text">
+        {{comment.creation_date}}
       </div>
     % end
 
