@@ -15,9 +15,8 @@ Preverjeno da deluje na Windows in Linux.
 1. Kloniraj projekt v lokalno mapo z `git clone` ukazom
 2. V mapi projekta (kjer se nahaja tudi `main.py`) ustvari novo Python virtualno okolje
 3. Znotraj virtualnega okolja inštaliraj potrebne knjižnice z `pip install -r requirements.txt` (morda MacOS potrebuje drug psycopg2 tukaj)
-4. Ustvari novo prazno postgresql bazo, namenjeno za ta projekt
-5. Ustvari in dopolni `Data/auth.py`, za zgled uporabi `Data/auth_public.py`, le s tem se projekt uspe povezati na bazo iz prejšnega koraka
-6. Zaženi projekt znotraj virtualnega okolja z `python main.py`, ob prvem zagonu bi se morala dopolniti baza s potrebnimi podatki
+4. Po želji dopolni `Data/auth.py`, drugače se bo projekt povezal na strežnik od fmf-ja. Za zgled lahko uporabiš `Data/auth_public.py`
+5. Zaženi projekt znotraj virtualnega okolja z `python main.py`. Če je baza prazna, bi se ob prvem zagonu morala dopolniti s potrebnimi podatki
 
 Bazo se da resetirati na prvotno stanje z ukazom `python main.py --clean`.
 
