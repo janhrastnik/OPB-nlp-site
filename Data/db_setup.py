@@ -160,6 +160,9 @@ class DatabaseSetup:
 
             queries = []
 
+            # fixes a DatetimeFieldOverflow error (not really)
+            # self.cur.execute("SET datestyle=mdy;")
+
             for i, line in enumerate(lines[1:]):
                 line = line.split(",")
                 # SIGHTINGS COLUMNS IN ORDER
