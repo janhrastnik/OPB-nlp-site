@@ -1,6 +1,7 @@
 import psycopg2
 import os
 import random
+from datetime import datetime, timedelta
 from Data.auth import auth
 
 """
@@ -163,7 +164,8 @@ class DatabaseSetup:
             # fixes a DatetimeFieldOverflow error (not really)
             # self.cur.execute("SET datestyle=mdy;")
 
-            for i, line in enumerate(lines[1:]):
+            # only do 10000 entries due to fmf server limitations
+            for i, line in enumerate(lines[1:10000]):
                 line = line.split(",")
                 # SIGHTINGS COLUMNS IN ORDER
                 # title, sighting_date, description, coords, duration, user_id, creation_date 
@@ -171,15 +173,33 @@ class DatabaseSetup:
                 title = f"Sighting of {shape}-shaped UFO in {line[1].capitalize()}, {line[2].capitalize()}"
                 coords = f"({line[9]}, {line[10]})"
 
-                query = f"""INSERT INTO sightings VALUES (
-                    {i},
+                sighting_date = ""
+                creation_date = ""
+
+                try: 
+                    if line[0].endswith("24:00"):
+                        # Parse just the date part
+                        dt = datetime.strptime(line[0][:10].strip(), "%m/%d/%Y")
+                        # Move to the next day at midnight
+                        dt += timedelta(days=1)
+                        sighting_date = dt.replace(hour=0, minute=0)
+                    else:
+                        sighting_date = datetime.strptime(line[0], "%m/%d/%Y %H:%M")
+
+                    creation_date = datetime.strptime(line[8], "%m/%d/%Y")
+                except ValueError:
+                    # entry is broken and will not make it into the db
+                    continue
+                
+
+                query = f"""INSERT INTO sightings (title, sighting_date, description, coords, duration, user_id, creation_date) VALUES (
                     '{title}',
-                    '{line[0]}',
+                    '{sighting_date}',
                     '{line[7]}',
                     '{coords}',
                     '{line[6]}',
                     '{random.randint(1, 5)}',
-                    '{line[8]}'
+                    '{creation_date}'
                 )
                 """
 
